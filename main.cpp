@@ -7,7 +7,6 @@
 
 #include <iostream>
 #include <windows.h>
-#include <gdiplus.h>
 
 const SIZE MIN_WINDOW_SIZE = SIZE{600, 450};
 const SIZE FIRST_WINDOW_SIZE = SIZE{600, 450};
