@@ -105,12 +105,11 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE, PWSTR pCmdLine, int nCmdShow
 
             glBegin(GL_TRIANGLES);
 
-            glColor3f(1.0f, 0.0f, 0.0f);
-            glVertex2f(0.0f, 1.0f);
-            glColor3f(0.0f, 1.0f, 0.0f);
-            glVertex2f(0.87f, -0.5f);
-            glColor3f(0.0f, 0.0f, 1.0f);
-            glVertex2f(-0.87f, -0.5f);
+            glColor3f(1.0f, 0.0f, 0.0f); glVertex2f(0.0f, 1.0f);
+
+            glColor3f(0.0f, 1.0f, 0.0f); glVertex2f(0.87f, -0.5f);
+
+            glColor3f(0.0f, 0.0f, 1.0f); glVertex2f(-0.87f, -0.5f);
 
             glEnd();
 
@@ -119,7 +118,7 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE, PWSTR pCmdLine, int nCmdShow
             SwapBuffers(hDC);
 
             theta += 1.0f;
-            Sleep(1);
+            Sleep(1000/120);
         }
     }
 
