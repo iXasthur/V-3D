@@ -143,9 +143,10 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam) 
         }
         case WM_KEYDOWN: {
             switch (wParam) {
-                case VK_ESCAPE:
+                case VK_ESCAPE: {
                     PostQuitMessage(0);
                     break;
+                }
             }
             break;
         }
@@ -155,8 +156,9 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam) 
             lpMMI->ptMinTrackSize.y = MIN_WINDOW_SIZE.cy;
             break;
         }
-        default:
+        default: {
             return DefWindowProc(hwnd, uMsg, wParam, lParam);
+        }
     }
 
     return 0;
