@@ -9,9 +9,6 @@
 
 class Camera {
 public:
-    static const int zNear = 5;
-    static const int zFar = 100;
-
     Vector3 position;
 };
 

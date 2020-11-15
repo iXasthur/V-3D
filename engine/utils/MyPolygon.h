@@ -15,6 +15,13 @@ public:
     explicit MyPolygon(std::array<Vector3, 3> vertices) {
         this->vertices = vertices;
     }
+
+    Vector3 getNormal()
+    {
+        Vector3 a = vertices[0] - vertices[1];
+        Vector3 b = vertices[0] - vertices[2];
+        return Vector3::cross(a, b);
+    }
 };
 
 

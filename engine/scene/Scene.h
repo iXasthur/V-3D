@@ -24,20 +24,6 @@ public:
     void add(const Object &obj) {
         objects.emplace_back(obj);
     }
-
-    std::vector<float> getVertices() {
-        std::vector<float> vertices;
-        for (const Object &obj : objects) {
-            for (MyPolygon polygon : obj.polygons) {
-                for (Vector3 vertex : polygon.vertices) {
-                    for (float v : vertex.toArray()) {
-                        vertices.emplace_back(v);
-                    }
-                }
-            }
-        }
-        return vertices;
-    }
 };
 
 

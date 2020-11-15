@@ -86,7 +86,15 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE, PWSTR pCmdLine, int nCmdShow
 
     engine.createExampleScene();
 
-    glFrustum(-1, 1, -1, 1, Camera::zNear, Camera::zFar);
+    glMatrixMode(GL_PROJECTION);
+    glLoadIdentity();
+    glFrustum(-0.1, 0.1, -0.1, 0.1, 0.2f, 1000.0f);
+    glMatrixMode(GL_MODELVIEW);
+    glLoadIdentity();
+
+    glEnable(GL_LIGHTING);
+    glEnable(GL_LIGHT0);
+//    glEnable(GL_COLOR_MATERIAL);
 
     bool bQuit = false;
     /* program main loop */
@@ -125,7 +133,33 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam) 
             return 0;
         }
         case WM_KEYDOWN: {
+            float cameraMoveDelta = 0.2f;
+
             switch (wParam) {
+                case 0x41: { // A
+                    engine.scene.camera.position.x -= cameraMoveDelta;
+                    break;
+                }
+                case 0x44: { // D
+                    engine.scene.camera.position.x += cameraMoveDelta;
+                    break;
+                }
+                case 0x57: { // W
+                    engine.scene.camera.position.z -= cameraMoveDelta;
+                    break;
+                }
+                case 0x53: { // S
+                    engine.scene.camera.position.z += cameraMoveDelta;
+                    break;
+                }
+                case VK_SPACE: {
+                    engine.scene.camera.position.y += cameraMoveDelta;
+                    break;
+                }
+                case VK_SHIFT: {
+                    engine.scene.camera.position.y -= cameraMoveDelta;
+                    break;
+                }
                 case VK_ESCAPE: {
                     PostQuitMessage(0);
                     break;
