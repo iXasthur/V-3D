@@ -82,6 +82,8 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE, PWSTR pCmdLine, int nCmdShow
     /* enable OpenGL for the window */
     EnableOpenGL(hwnd, &hDC, &hRC);
 
+    glEnable(GL_DEPTH_TEST);
+
     engine.createExampleScene();
 
     glFrustum(-1, 1, -1, 1, Camera::zNear, Camera::zFar);
