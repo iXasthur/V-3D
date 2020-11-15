@@ -94,7 +94,7 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE, PWSTR pCmdLine, int nCmdShow
 
     glEnable(GL_LIGHTING);
     glEnable(GL_LIGHT0);
-//    glEnable(GL_COLOR_MATERIAL);
+    glEnable(GL_COLOR_MATERIAL);
 
     bool bQuit = false;
     /* program main loop */
@@ -110,7 +110,9 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE, PWSTR pCmdLine, int nCmdShow
             }
         } else {
             /* OpenGL animation code goes here */
+            engine.handleKeys();
             engine.draw(hDC);
+            Sleep(1000/engine.fps);
         }
     }
 
@@ -133,52 +135,13 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam) 
             return 0;
         }
         case WM_KEYDOWN: {
-            float cameraMoveDelta = 0.2f;
-            float cameraRotationDelta = 4.0f;
-
             switch (wParam) {
-                case 0x41: { // A
-                    engine.scene.camera.position.x -= cameraMoveDelta;
-                    break;
-                }
-                case 0x44: { // D
-                    engine.scene.camera.position.x += cameraMoveDelta;
-                    break;
-                }
-                case 0x57: { // W
-                    engine.scene.camera.position.z -= cameraMoveDelta;
-                    break;
-                }
-                case 0x53: { // S
-                    engine.scene.camera.position.z += cameraMoveDelta;
-                    break;
-                }
-                case VK_LEFT: {
-                    engine.scene.camera.eulerRotation.y -= cameraRotationDelta;
-                    break;
-                }
-                case VK_RIGHT: {
-                    engine.scene.camera.eulerRotation.y += cameraRotationDelta;
-                    break;
-                }
-                case VK_UP: {
-                    engine.scene.camera.eulerRotation.x -= cameraRotationDelta;
-                    break;
-                }
-                case VK_DOWN: {
-                    engine.scene.camera.eulerRotation.x += cameraRotationDelta;
-                    break;
-                }
-                case VK_SPACE: {
-                    engine.scene.camera.position.y += cameraMoveDelta;
-                    break;
-                }
-                case VK_SHIFT: {
-                    engine.scene.camera.position.y -= cameraMoveDelta;
-                    break;
-                }
+
                 case VK_ESCAPE: {
                     PostQuitMessage(0);
+                    break;
+                }
+                default: {
                     break;
                 }
             }

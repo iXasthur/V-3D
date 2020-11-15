@@ -13,6 +13,9 @@
 class Engine {
 public:
     int fps = 120;
+    const float cameraMoveDelta = 0.1f;
+    const float cameraRotationDelta = 1.5f;
+
     float alphaY = 0;
     Scene scene = Scene();
 
@@ -22,6 +25,39 @@ public:
         scene.camera.position = {0, 1, 5};
 
         scene.add(ObjectFactory::pyramid());
+    }
+
+    void handleKeys() {
+        if (GetKeyState(0x41) < 0) {
+            scene.camera.position.x -= cameraMoveDelta;
+        }
+        if (GetKeyState(0x44) < 0) {
+            scene.camera.position.x += cameraMoveDelta;
+        }
+        if (GetKeyState(0x57) < 0) {
+            scene.camera.position.z -= cameraMoveDelta;
+        }
+        if (GetKeyState(0x53) < 0) {
+            scene.camera.position.z += cameraMoveDelta;
+        }
+        if (GetKeyState(VK_SHIFT) < 0) {
+            scene.camera.position.y -= cameraMoveDelta;
+        }
+        if (GetKeyState(VK_SPACE) < 0) {
+            scene.camera.position.y += cameraMoveDelta;
+        }
+        if (GetKeyState(VK_LEFT) < 0) {
+            scene.camera.eulerRotation.y -= cameraRotationDelta;
+        }
+        if (GetKeyState(VK_RIGHT) < 0) {
+            scene.camera.eulerRotation.y += cameraRotationDelta;
+        }
+        if (GetKeyState(VK_UP) < 0) {
+            scene.camera.eulerRotation.x -= cameraRotationDelta;
+        }
+        if (GetKeyState(VK_DOWN) < 0) {
+            scene.camera.eulerRotation.x += cameraRotationDelta;
+        }
     }
 
     void draw(HDC hdc) {
@@ -69,7 +105,6 @@ public:
         SwapBuffers(hdc);
 
         alphaY += 180.0f / (float)fps;
-        Sleep(1000/fps);
     }
 };
 
