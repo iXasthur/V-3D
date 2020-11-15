@@ -29,9 +29,13 @@ public:
         glClearColor(scene.backgroundColor.Rf, scene.backgroundColor.Gf, scene.backgroundColor.Bf, scene.backgroundColor.Af);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
+        // Push to save perspective projection
         glPushMatrix();
 
-        // Move scene (opposite to camera)
+        // Rotate and scene (simulate camera)
+        glRotatef(scene.camera.eulerRotation.x, 1, 0, 0);
+        glRotatef(scene.camera.eulerRotation.y, 0, 1, 0);
+        glRotatef(scene.camera.eulerRotation.y, 0, 0, 0);
         glTranslatef(-scene.camera.position.x, -scene.camera.position.y, -scene.camera.position.z);
 
         float lightPosition[] = {-10, -20, -10, 0};

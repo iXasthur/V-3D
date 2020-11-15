@@ -134,6 +134,7 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam) 
         }
         case WM_KEYDOWN: {
             float cameraMoveDelta = 0.2f;
+            float cameraRotationDelta = 5.0f;
 
             switch (wParam) {
                 case 0x41: { // A
@@ -150,6 +151,22 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam) 
                 }
                 case 0x53: { // S
                     engine.scene.camera.position.z += cameraMoveDelta;
+                    break;
+                }
+                case VK_LEFT: {
+                    engine.scene.camera.eulerRotation.y -= cameraRotationDelta;
+                    break;
+                }
+                case VK_RIGHT: {
+                    engine.scene.camera.eulerRotation.y += cameraRotationDelta;
+                    break;
+                }
+                case VK_UP: {
+                    engine.scene.camera.eulerRotation.x -= cameraRotationDelta;
+                    break;
+                }
+                case VK_DOWN: {
+                    engine.scene.camera.eulerRotation.x += cameraRotationDelta;
                     break;
                 }
                 case VK_SPACE: {

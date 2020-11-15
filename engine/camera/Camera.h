@@ -10,6 +10,7 @@
 class Camera {
 public:
     Vector3 position;
+    Vector3 eulerRotation;
 };
 
 
