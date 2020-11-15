@@ -8,16 +8,18 @@
 #include <iostream>
 #include <windows.h>
 #include "gl/gl.h"
+#include "engine/Engine.h"
+#include "engine/utils/MyPolygon.h"
 
 const SIZE MIN_WINDOW_SIZE = SIZE{600, 600};
 const SIZE FIRST_WINDOW_SIZE = SIZE{600, 600};
-const COLORREF BACKGROUND_COLOR = RGB(26, 26, 26);
+const COLORREF BACKGROUND_COLOR = RGB(255, 255, 255);
 
 LRESULT CALLBACK WindowProc(HWND, UINT, WPARAM, LPARAM);
-
 void EnableOpenGL(HWND hwnd, HDC *, HGLRC *);
-
 void DisableOpenGL(HWND, HDC, HGLRC);
+
+Engine engine = Engine();
 
 
 int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE, PWSTR pCmdLine, int nCmdShow) {
@@ -80,9 +82,11 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE, PWSTR pCmdLine, int nCmdShow
     /* enable OpenGL for the window */
     EnableOpenGL(hwnd, &hDC, &hRC);
 
+    engine.createExampleScene();
+
+    glFrustum(-1, 1, -1, 1, Camera::zNear, Camera::zFar);
 
     bool bQuit = false;
-    float theta = 0.0f;
     /* program main loop */
     while (!bQuit) {
         /* check for messages */
@@ -96,29 +100,7 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE, PWSTR pCmdLine, int nCmdShow
             }
         } else {
             /* OpenGL animation code goes here */
-
-            glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
-            glClear(GL_COLOR_BUFFER_BIT);
-
-            glPushMatrix();
-            glRotatef(theta, 0.0f, 0.0f, 1.0f);
-
-            glBegin(GL_TRIANGLES);
-
-            glColor3f(1.0f, 0.0f, 0.0f); glVertex2f(0.0f, 1.0f);
-
-            glColor3f(0.0f, 1.0f, 0.0f); glVertex2f(0.87f, -0.5f);
-
-            glColor3f(0.0f, 0.0f, 1.0f); glVertex2f(-0.87f, -0.5f);
-
-            glEnd();
-
-            glPopMatrix();
-
-            SwapBuffers(hDC);
-
-            theta += 1.0f;
-            Sleep(1000/120);
+            engine.draw(hDC);
         }
     }
 
