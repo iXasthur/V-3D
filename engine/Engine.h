@@ -5,18 +5,19 @@
 #ifndef V_3D_ENGINE_H
 #define V_3D_ENGINE_H
 
+#include <iostream>
 #include <array>
 #include "gl/gl.h"
 #include "scene/Scene.h"
 #include "object/ObjectFactory.h"
+#include <math.h>
 
 class Engine {
 public:
-    int fps = 120;
-    const float cameraMoveDelta = 0.1f;
+    const int fps = 120;
+    const float cameraMoveDeltaAbsolute = 0.1f;
     const float cameraRotationDelta = 1.5f;
 
-    float alphaY = 0;
     Scene scene = Scene();
 
     void createExampleScene() {
@@ -28,24 +29,39 @@ public:
     }
 
     void handleKeys() {
-        if (GetKeyState(0x41) < 0) {
-            scene.camera.position.x -= cameraMoveDelta;
+        float moveSpeed = 0;
+        if (GetKeyState(0x57) < 0) { // W
+            moveSpeed = cameraMoveDeltaAbsolute;
         }
-        if (GetKeyState(0x44) < 0) {
-            scene.camera.position.x += cameraMoveDelta;
+        if (GetKeyState(0x53) < 0) { // S
+            moveSpeed = -cameraMoveDeltaAbsolute;
         }
-        if (GetKeyState(0x57) < 0) {
-            scene.camera.position.z -= cameraMoveDelta;
+        if (moveSpeed != 0) {
+            float alphaY = scene.camera.eulerRotation.y;
+            scene.camera.position.x -= sin(-alphaY / 180.0f * M_PI) * moveSpeed;
+            scene.camera.position.z -= cos(-alphaY / 180.0f * M_PI) * moveSpeed;
         }
-        if (GetKeyState(0x53) < 0) {
-            scene.camera.position.z += cameraMoveDelta;
+
+        moveSpeed = 0;
+        if (GetKeyState(0x44) < 0) { // D
+            moveSpeed = cameraMoveDeltaAbsolute;
         }
+        if (GetKeyState(0x41) < 0) { // A
+            moveSpeed = -cameraMoveDeltaAbsolute;
+        }
+        if (moveSpeed != 0) {
+            float alphaY = scene.camera.eulerRotation.y;
+            scene.camera.position.x += cos(-alphaY / 180.0f * M_PI) * moveSpeed;
+            scene.camera.position.z -= sin(-alphaY / 180.0f * M_PI) * moveSpeed;
+        }
+
         if (GetKeyState(VK_SHIFT) < 0) {
-            scene.camera.position.y -= cameraMoveDelta;
+            scene.camera.position.y -= cameraMoveDeltaAbsolute;
         }
         if (GetKeyState(VK_SPACE) < 0) {
-            scene.camera.position.y += cameraMoveDelta;
+            scene.camera.position.y += cameraMoveDeltaAbsolute;
         }
+
         if (GetKeyState(VK_LEFT) < 0) {
             scene.camera.eulerRotation.y -= cameraRotationDelta;
         }
@@ -53,15 +69,24 @@ public:
             scene.camera.eulerRotation.y += cameraRotationDelta;
         }
         if (GetKeyState(VK_UP) < 0) {
-            scene.camera.eulerRotation.x -= cameraRotationDelta;
+            if (scene.camera.eulerRotation.x > -90.0f) {
+                scene.camera.eulerRotation.x -= cameraRotationDelta;
+            } else {
+                scene.camera.eulerRotation.x = -90.0f;
+            }
         }
         if (GetKeyState(VK_DOWN) < 0) {
-            scene.camera.eulerRotation.x += cameraRotationDelta;
+            if (scene.camera.eulerRotation.x < 90.0f) {
+                scene.camera.eulerRotation.x += cameraRotationDelta;
+            } else {
+                scene.camera.eulerRotation.x = 90.0f;
+            }
         }
+        std::cout << scene.camera.eulerRotation.y << std::endl;
     }
 
     void draw(HDC hdc) {
-
+        // Clear screen
         glClearColor(scene.backgroundColor.Rf, scene.backgroundColor.Gf, scene.backgroundColor.Bf, scene.backgroundColor.Af);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
@@ -71,14 +96,19 @@ public:
         // Rotate and scene (simulate camera)
         glRotatef(scene.camera.eulerRotation.x, 1, 0, 0);
         glRotatef(scene.camera.eulerRotation.y, 0, 1, 0);
-        glRotatef(scene.camera.eulerRotation.y, 0, 0, 0);
+        glRotatef(scene.camera.eulerRotation.z, 0, 0, 1);
         glTranslatef(-scene.camera.position.x, -scene.camera.position.y, -scene.camera.position.z);
 
+        // Set light
         float lightPosition[] = {-10, -20, -10, 0};
         glLightfv(GL_LIGHT0, GL_POSITION, lightPosition);
 
-        glRotatef(alphaY, 0, 1, 0);
+        // Rotate scene
+        glRotatef(scene.eulerRotation.x, 1, 0, 0);
+        glRotatef(scene.eulerRotation.y, 0, 1, 0);
+        glRotatef(scene.eulerRotation.z, 0, 0, 1);
 
+        // Draw
         glEnableClientState(GL_VERTEX_ARRAY);
         glEnableClientState(GL_NORMAL_ARRAY);
             for (Object &obj : scene.objects) {
@@ -99,12 +129,9 @@ public:
         glDisableClientState(GL_VERTEX_ARRAY);
         glDisableClientState(GL_NORMAL_ARRAY);
 
-
         glPopMatrix();
 
         SwapBuffers(hdc);
-
-        alphaY += 180.0f / (float)fps;
     }
 };
 

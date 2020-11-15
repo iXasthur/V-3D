@@ -16,6 +16,7 @@ class Scene {
 public:
     std::vector<Object> objects;
     Camera camera;
+    EulerAngle eulerRotation;
 
     Color backgroundColor = Color(34, 34, 34, 255);
 
