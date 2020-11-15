@@ -134,7 +134,7 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam) 
         }
         case WM_KEYDOWN: {
             float cameraMoveDelta = 0.2f;
-            float cameraRotationDelta = 5.0f;
+            float cameraRotationDelta = 4.0f;
 
             switch (wParam) {
                 case 0x41: { // A
