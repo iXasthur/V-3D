@@ -5,7 +5,6 @@
 #ifndef V_3D_ENGINE_H
 #define V_3D_ENGINE_H
 
-#include <iostream>
 #include <array>
 #include "gl/gl.h"
 #include "scene/Scene.h"
@@ -82,7 +81,6 @@ public:
                 scene.camera.eulerRotation.x = 90.0f;
             }
         }
-        std::cout << scene.camera.eulerRotation.y << std::endl;
     }
 
     void draw(HDC hdc) {
