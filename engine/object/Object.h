@@ -14,7 +14,7 @@ public:
     Vector3 position;
     std::vector<MyPolygon> polygons;
 
-    Color color = Color(0, 255, 0, 255);
+    Color color = Color(255, 255, 255, 255);
 
     Object() = default;
 

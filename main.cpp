@@ -113,7 +113,7 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE, PWSTR pCmdLine, int nCmdShow
             engine.handleKeys(); // Faster than handling messages
             engine.draw(hDC);
             Sleep(1000/engine.fps);
-            engine.scene.eulerRotation.y += 1.0f;
+//            engine.scene.eulerRotation.y += 1.0f;
         }
     }
 

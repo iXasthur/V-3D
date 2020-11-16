@@ -9,7 +9,7 @@
 #include "gl/gl.h"
 #include "scene/Scene.h"
 #include "object/ObjectFactory.h"
-#include <math.h>
+#include <cmath>
 
 class Engine {
 public:
@@ -22,9 +22,14 @@ public:
     void createExampleScene() {
         scene = Scene();
 
-        scene.camera.position = {0, 1, 5};
+        scene.camera.position = {0, 1, 10};
 
-        scene.add(ObjectFactory::pyramid());
+//        Object pyramid = ObjectFactory::pyramid();
+//        pyramid.position.x = 1;
+//        scene.add(pyramid);
+
+        Object spaceship = ObjectFactory::spaceship();
+        scene.add(spaceship);
     }
 
     void handleKeys() {
@@ -98,7 +103,7 @@ public:
         glTranslatef(-scene.camera.position.x, -scene.camera.position.y, -scene.camera.position.z);
 
         // Set light
-        float lightPosition[] = {-10, -20, -10, 0};
+        float lightPosition[] = {10, 20, 10, 0};
         glLightfv(GL_LIGHT0, GL_POSITION, lightPosition);
 
         // Rotate scene
