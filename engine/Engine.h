@@ -23,9 +23,10 @@ public:
         scene = Scene();
 
         scene.camera.position = {0, 1, 10};
+        scene.light.position = {5, 5, 5 , 0};
 
-        Object spaceship = ObjectFactory::spaceship();
-        scene.add(spaceship);
+        Object monkey = ObjectFactory::pyramid();
+        scene.add(monkey);
     }
 
     void handleKeys() {
@@ -99,8 +100,7 @@ public:
         glTranslatef(-scene.camera.position.x, -scene.camera.position.y, -scene.camera.position.z);
 
         // Set light
-        float lightPosition[] = {5, 10, 10, 0};
-        glLightfv(GL_LIGHT0, GL_POSITION, lightPosition);
+        glLightfv(GL_LIGHT0, GL_POSITION, scene.light.position.toArray().data());
 
         // Rotate scene
         glRotatef(scene.eulerRotation.x, 1, 0, 0);

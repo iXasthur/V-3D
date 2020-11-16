@@ -9,6 +9,7 @@
 #include <array>
 #include <cstdlib>
 #include "../object/Object.h"
+#include "../light/Light.h"
 #include "../camera/Camera.h"
 #include "../utils/Color.h"
 
@@ -17,6 +18,7 @@ public:
     std::vector<Object> objects;
     Camera camera;
     EulerAngle eulerRotation;
+    Light light;
 
     Color backgroundColor = Color(34, 34, 34, 255);
 

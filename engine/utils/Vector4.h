@@ -5,6 +5,7 @@
 #ifndef V_3D_VECTOR4_H
 #define V_3D_VECTOR4_H
 
+#include <array>
 
 class Vector4 {
 public:
@@ -20,7 +21,10 @@ public:
     Vector4() : x(0), y(0), z(0), w(0) {
 
     }
-};
 
+    std::array<float, 4> toArray() {
+        return {x, y, z, w};
+    }
+};
 
 #endif //V_3D_VECTOR4_H

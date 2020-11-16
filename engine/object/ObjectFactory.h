@@ -10,16 +10,20 @@
 
 class ObjectFactory {
 public:
+    static Object monkey() {
+        return ObjectLoader::LoadObjModel("objects/monkey.obj");
+    }
+
+    static Object pyramid() {
+        return ObjectLoader::LoadObjModel("objects/pyramid.obj");
+    }
+
     static Object spaceship() {
-        Object obj = Object();
-        obj.polygons = ObjectLoader::LoadObjModelPolygons("objects/spaceship.obj");
-        return obj;
+        return ObjectLoader::LoadObjModel("objects/spaceship.obj");
     }
 
     static Object cube() {
-        Object obj = Object();
-        obj.polygons = ObjectLoader::LoadObjModelPolygons("objects/cube.obj");
-        return obj;
+        return ObjectLoader::LoadObjModel("objects/cube.obj");
     }
 };
 

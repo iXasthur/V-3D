@@ -18,10 +18,6 @@ public:
 
     Object() = default;
 
-    void addPolygon(MyPolygon polygon) {
-        polygons.emplace_back(polygon);
-    }
-
     std::vector<float> getVertices() {
         std::vector<float> vertices;
         for (MyPolygon polygon : polygons) {
@@ -37,8 +33,7 @@ public:
     std::vector<float> getNormals() {
         std::vector<float> normals;
         for (MyPolygon polygon : polygons) {
-            Vector3 normal = polygon.getNormal();
-            for (int i = 0; i < polygon.vertices.size(); ++i) {
+            for (Vector3 normal : polygon.normals) {
                 for (float n : normal.toArray()) {
                     normals.emplace_back(n);
                 }
