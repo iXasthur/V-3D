@@ -15,6 +15,12 @@ public:
         obj.polygons = ObjectLoader::LoadObjModelPolygons("objects/spaceship.obj");
         return obj;
     }
+
+    static Object cube() {
+        Object obj = Object();
+        obj.polygons = ObjectLoader::LoadObjModelPolygons("objects/cube.obj");
+        return obj;
+    }
 };
 
 

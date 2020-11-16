@@ -24,10 +24,6 @@ public:
 
         scene.camera.position = {0, 1, 10};
 
-//        Object pyramid = ObjectFactory::pyramid();
-//        pyramid.position.x = 1;
-//        scene.add(pyramid);
-
         Object spaceship = ObjectFactory::spaceship();
         scene.add(spaceship);
     }
@@ -103,7 +99,7 @@ public:
         glTranslatef(-scene.camera.position.x, -scene.camera.position.y, -scene.camera.position.z);
 
         // Set light
-        float lightPosition[] = {10, 20, 10, 0};
+        float lightPosition[] = {5, 10, 10, 0};
         glLightfv(GL_LIGHT0, GL_POSITION, lightPosition);
 
         // Rotate scene

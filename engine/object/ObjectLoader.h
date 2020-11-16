@@ -44,47 +44,51 @@ public:
     }
 
     static std::vector<MyPolygon> LoadObjModelPolygons(const char *filename) {
-        std::ifstream in(filename, std::ios::in);
-        if (!in) {
-            std::cerr << "Cannot open " << filename << std::endl;
-            exit(1);
-        }
-
         std::vector<Vector3> vertices;
         std::vector<MyPolygon> polygons;
 
-        std::string line;
-        while (std::getline(in, line)) {
-            if (line.substr(0,2)=="v ") {
-                std::istringstream v(line.substr(2));
-                Vector3 vertex;
+        std::ifstream in(filename, std::ios::in);
+        if (in) {
+            std::string line;
+            while (std::getline(in, line)) {
+                if (line.substr(0,2) == "v ") {
+                    std::istringstream v(line.substr(2));
+                    Vector3 vertex;
 
-                v >> vertex.x;
-                v >> vertex.y;
-                v >> vertex.z;
+                    v >> vertex.x;
+                    v >> vertex.y;
+                    v >> vertex.z;
 
-                vertices.push_back(vertex);
+                    vertices.push_back(vertex);
+                } else if (line.substr(0,2) == "f ") {
+                    std::istringstream v(line);
+
+                    std::vector<int> f;
+                    std::array<Vector3, 3> pVerts;
+
+                    while (!v.eof()) {
+                        if (v.peek() == ' ') {
+                            int fv;
+                            v >> fv;
+                            f.emplace_back(fv);
+                        } else {
+                            v.ignore();
+                        }
+                    }
+
+                    if (f.size() == 3) {
+                        pVerts[0] = vertices[f[0] - 1];
+                        pVerts[1] = vertices[f[1] - 1];
+                        pVerts[2] = vertices[f[2] - 1];
+                        polygons.emplace_back(MyPolygon(pVerts));
+                    } else {
+                        std::cerr << "Object face must have 3 vertices" << std::endl;
+                    }
+                }
             }
-
-            if (line.substr(0,2)=="f ")
-            {
-                std::istringstream v(line.substr(2));
-
-                std::array<Vector3, 3> pVerts;
-
-                int f[3];
-                v >> f[0];
-                v >> f[1];
-                v >> f[2];
-
-                pVerts[0] = vertices[f[0] - 1];
-                pVerts[1] = vertices[f[1] - 1];
-                pVerts[2] = vertices[f[2] - 1];
-
-                polygons.emplace_back(MyPolygon(pVerts));
-            }
+        } else {
+            std::cerr << "Cannot open " << filename << std::endl;
         }
-
 
         return polygons;
     }
