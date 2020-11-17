@@ -112,9 +112,9 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE, PWSTR pCmdLine, int nCmdShow
             /* OpenGL animation code goes here */
             engine.handleKeys(); // Faster than handling messages
             engine.draw(hDC);
+            SetWindowTextA(hwnd, engine.description().data());
             Sleep(1000/engine.fps);
             engine.scene.eulerRotation.y += 1.0f;
-            SetWindowTextA(hwnd, engine.description().data());
         }
     }
 
