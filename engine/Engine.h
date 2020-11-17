@@ -141,9 +141,8 @@ public:
     std::string description() {
         std::string s;
         for (const Object &obj : scene.objects) {
-            s += obj.name;
+            s += obj.name + ", ";
         }
-        s += ", ";
         s += scene.camera.position.toString();
         return s;
     }

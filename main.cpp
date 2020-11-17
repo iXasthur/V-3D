@@ -85,8 +85,6 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE, PWSTR pCmdLine, int nCmdShow
 
     glEnable(GL_DEPTH_TEST);
 
-//    engine.createExampleScene();
-
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
     glFrustum(-0.1, 0.1, -0.1, 0.1, 0.2f, 1000.0f);

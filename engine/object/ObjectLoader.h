@@ -16,6 +16,16 @@ public:
         Object obj = Object();
         obj.name = filename;
 
+        int find = obj.name.find_last_of('/');
+        if (find != std::string::npos) {
+            obj.name = obj.name.substr(find + 1);
+        }
+
+        find = obj.name.find_last_of('\\');
+        if (find != std::string::npos) {
+            obj.name = obj.name.substr(find + 1);
+        }
+
         std::vector<Vector3> vertices;
         std::vector<MyPolygon> polygons;
         std::vector<Vector3> normals;
