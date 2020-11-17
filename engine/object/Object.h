@@ -42,6 +42,49 @@ public:
         }
         return normals;
     }
+
+    Vector3 dimension() {
+        float minX = 0;
+        float maxX = 0;
+        float minY = 0;
+        float maxY = 0;
+        float minZ = 0;
+        float maxZ = 0;
+
+        if (!polygons.empty()) {
+            Vector3 fv = polygons.front().vertices.front();
+            minX = fv.x;
+            maxX = fv.x;
+            minY = fv.y;
+            maxY = fv.y;
+            minZ = fv.z;
+            maxZ = fv.z;
+
+            for (MyPolygon polygon : polygons) {
+                for (Vector3 vertex : polygon.vertices) {
+                    if (vertex.x < minX) {
+                        minX = vertex.x;
+                    } else if (vertex.x > maxX) {
+                        maxX = vertex.x;
+                    }
+
+                    if (vertex.y < minY) {
+                        minY = vertex.y;
+                    } else if (vertex.y > maxY) {
+                        maxY = vertex.y;
+                    }
+
+                    if (vertex.z < minZ) {
+                        minZ = vertex.z;
+                    } else if (vertex.z > maxZ) {
+                        maxZ = vertex.z;
+                    }
+                }
+            }
+        }
+
+        return {maxX - minX, maxY - minY, maxZ - minZ};
+    }
 };
 
 

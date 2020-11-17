@@ -31,12 +31,15 @@ public:
 
     void reorderObjects() {
         Vector3 pos;
-        for (Object &obj : objects) {
-            obj.position.x = pos.x;
-            obj.position.y = pos.y;
-            obj.position.z = pos.z;
+        for (int i = 0; i < objects.size(); ++i) {
+            if (i > 0) {
+                pos.x += objects[i-1].dimension().x/2 + objects[i].dimension().x/2;
+                pos.x += 1;
+            }
 
-            pos.x += 5;
+            objects[i].position.x = pos.x;
+            objects[i].position.y = pos.y;
+            objects[i].position.z = pos.z;
         }
     }
 };
