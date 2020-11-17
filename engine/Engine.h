@@ -25,7 +25,7 @@ public:
         scene.camera.position = {0, 1, 10};
         scene.light.position = {5, 5, 5 , 0};
 
-        Object monkey = ObjectFactory::pyramid();
+        Object monkey = ObjectFactory::monkey();
         scene.add(monkey);
     }
 
@@ -131,6 +131,16 @@ public:
         glPopMatrix();
 
         SwapBuffers(hdc);
+    }
+
+    std::string description() {
+        std::string s;
+        for (const Object &obj : scene.objects) {
+            s += obj.name;
+        }
+        s += ", ";
+        s += scene.camera.position.toString();
+        return s;
     }
 };
 

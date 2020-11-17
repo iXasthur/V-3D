@@ -13,6 +13,7 @@ class Object {
 public:
     Vector3 position;
     std::vector<MyPolygon> polygons;
+    std::string name;
 
     Color color = Color(255, 255, 255, 255);
 

@@ -41,6 +41,22 @@ public:
         return {x, y, z};
     }
 
+    [[nodiscard]] std::string toString() const {
+        std::string s;
+
+        std::string xs = std::to_string(x);
+        xs = xs.substr(0, xs.find('.')+3);
+
+        std::string xy = std::to_string(y);
+        xy = xy.substr(0, xs.find('.')+3);
+
+        std::string xz = std::to_string(z);
+        xz = xz.substr(0, xz.find('.')+3);
+
+        s = "x: " + xs + " y: " + xy + " z: " + xz;
+        return s;
+    }
+
     static Vector3 cross(Vector3 v1, Vector3 v2) {
         Vector3 v;
         v.x = v1.y * v2.z - v1.z * v2.y;

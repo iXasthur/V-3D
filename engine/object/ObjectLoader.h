@@ -14,6 +14,7 @@ class ObjectLoader {
 public:
     static Object LoadObjModel(const char *filename) {
         Object obj = Object();
+        obj.name = filename;
 
         std::vector<Vector3> vertices;
         std::vector<MyPolygon> polygons;
