@@ -11,19 +11,7 @@
 class ObjectFactory {
 public:
     static Object monkey() {
-        return ObjectLoader::LoadObjModel("objects/monkey.obj");
-    }
-
-    static Object pyramid() {
-        return ObjectLoader::LoadObjModel("objects/pyramid.obj");
-    }
-
-    static Object spaceship() {
-        return ObjectLoader::LoadObjModel("objects/spaceship.obj");
-    }
-
-    static Object cube() {
-        return ObjectLoader::LoadObjModel("objects/cube.obj");
+        return ObjectLoader::LoadObjModel("../objects/monkey.obj");
     }
 };
 

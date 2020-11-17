@@ -26,6 +26,18 @@ public:
 
     void add(const Object &obj) {
         objects.emplace_back(obj);
+        reorderObjects();
+    }
+
+    void reorderObjects() {
+        Vector3 pos;
+        for (Object &obj : objects) {
+            obj.position.x = pos.x;
+            obj.position.y = pos.y;
+            obj.position.z = pos.z;
+
+            pos.x += 5;
+        }
     }
 };
 

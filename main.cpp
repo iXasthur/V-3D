@@ -7,12 +7,13 @@
 
 #include <iostream>
 #include <windows.h>
+#include <tchar.h>
 #include "gl/gl.h"
 #include "engine/Engine.h"
 #include "engine/utils/MyPolygon.h"
 
-const SIZE MIN_WINDOW_SIZE = SIZE{600, 600};
-const SIZE FIRST_WINDOW_SIZE = SIZE{600, 600};
+const SIZE MIN_WINDOW_SIZE = SIZE{900, 900};
+const SIZE FIRST_WINDOW_SIZE = SIZE{900, 900};
 const COLORREF BACKGROUND_COLOR = RGB(255, 255, 255);
 
 LRESULT CALLBACK WindowProc(HWND, UINT, WPARAM, LPARAM);
@@ -84,7 +85,7 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE, PWSTR pCmdLine, int nCmdShow
 
     glEnable(GL_DEPTH_TEST);
 
-    engine.createExampleScene();
+//    engine.createExampleScene();
 
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
@@ -114,7 +115,6 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE, PWSTR pCmdLine, int nCmdShow
             engine.draw(hDC);
             SetWindowTextA(hwnd, engine.description().data());
             Sleep(1000/engine.fps);
-            engine.scene.eulerRotation.y += 1.0f;
         }
     }
 
@@ -138,6 +138,33 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam) 
         }
         case WM_KEYDOWN: {
             switch (wParam) {
+                case 0x4F: { // O
+                    OPENFILENAME ofn;
+                    TCHAR szFile[260] = { 0 };
+
+                    ZeroMemory(&ofn, sizeof(ofn));
+                    ofn.lStructSize = sizeof(ofn);
+                    ofn.hwndOwner = hwnd;
+                    ofn.lpstrFile = szFile;
+                    ofn.nMaxFile = sizeof(szFile);
+                    ofn.lpstrFilter = _T("obj\0*.obj\0");
+                    ofn.nFilterIndex = 1;
+                    ofn.lpstrFileTitle = nullptr;
+                    ofn.nMaxFileTitle = 0;
+                    ofn.lpstrInitialDir = nullptr;
+                    ofn.Flags = OFN_PATHMUSTEXIST | OFN_FILEMUSTEXIST;
+
+                    if (GetOpenFileName(&ofn) == TRUE)
+                    {
+                        std::wstring wpath = ofn.lpstrFile;
+                        std::string path(wpath.begin(), wpath.end());
+
+                        Object obj = ObjectLoader::LoadObjModel(path);
+                        engine.scene.add(obj);
+                    }
+
+                    break;
+                }
                 case VK_ESCAPE: {
                     PostQuitMessage(0);
                     break;

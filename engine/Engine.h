@@ -19,6 +19,11 @@ public:
 
     Scene scene = Scene();
 
+    Engine() {
+        scene.camera.position = {0, 1, 10};
+        scene.light.position = {5, 5, 5 , 0};
+    }
+
     void createExampleScene() {
         scene = Scene();
 

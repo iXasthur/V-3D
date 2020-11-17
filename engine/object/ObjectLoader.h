@@ -12,7 +12,7 @@
 
 class ObjectLoader {
 public:
-    static Object LoadObjModel(const char *filename) {
+    static Object LoadObjModel(const std::string &filename) {
         Object obj = Object();
         obj.name = filename;
 
