@@ -28,7 +28,7 @@ public:
     };
 
     void resetCamera() {
-        camera.position = {0, 10, 100};
+        camera.position = {0, 10, 40};
         camera.eulerRotation = EulerAngle();
     }
 
