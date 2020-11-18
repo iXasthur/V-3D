@@ -68,7 +68,7 @@ public:
         Vector3 lowestVertex;
 
         for (MyPolygon &polygon : polygons) {
-            for (Vector3 vertex : polygon.vertices) {
+            for (Vector3 &vertex : polygon.vertices) {
                 if (vertex.y < lowestVertex.y) {
                     lowestVertex = vertex;
                 }
