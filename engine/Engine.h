@@ -12,8 +12,7 @@
 
 class Engine {
 public:
-    enum class RenderMode
-    {
+    enum class RenderMode {
         SOLID,
         WIREFRAME
     };
@@ -96,7 +95,8 @@ public:
         }
 
         // Clear screen
-        glClearColor(scene.backgroundColor.Rf, scene.backgroundColor.Gf, scene.backgroundColor.Bf, scene.backgroundColor.Af);
+        glClearColor(scene.backgroundColor.Rf, scene.backgroundColor.Gf, scene.backgroundColor.Bf,
+                     scene.backgroundColor.Af);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
         // Push to save perspective projection
@@ -119,21 +119,21 @@ public:
         // Draw
         glEnableClientState(GL_VERTEX_ARRAY);
         glEnableClientState(GL_NORMAL_ARRAY);
-            for (Object &obj : scene.objects) {
-                std::vector<float> vertices = obj.getVertices();
-                std::vector<float> normals = obj.getNormals();
+        for (Object &obj : scene.objects) {
+            std::vector<float> vertices = obj.getVertices();
+            std::vector<float> normals = obj.getNormals();
 
-                glPushMatrix();
+            glPushMatrix();
 
-                glTranslatef(obj.position.x, obj.position.y, obj.position.z);
-                glColor3f(obj.color.Rf, obj.color.Gf, obj.color.Bf);
+            glTranslatef(obj.position.x, obj.position.y, obj.position.z);
+            glColor3f(obj.color.Rf, obj.color.Gf, obj.color.Bf);
 
-                glNormalPointer(GL_FLOAT, 0, normals.data());
-                glVertexPointer(3, GL_FLOAT, 0, vertices.data());
-                glDrawArrays(GL_TRIANGLES, 0, vertices.size() / 3);
+            glNormalPointer(GL_FLOAT, 0, normals.data());
+            glVertexPointer(3, GL_FLOAT, 0, vertices.data());
+            glDrawArrays(GL_TRIANGLES, 0, vertices.size() / 3);
 
-                glPopMatrix();
-            }
+            glPopMatrix();
+        }
         glDisableClientState(GL_VERTEX_ARRAY);
         glDisableClientState(GL_NORMAL_ARRAY);
 

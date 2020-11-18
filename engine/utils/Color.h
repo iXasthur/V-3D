@@ -24,10 +24,10 @@ public:
         B = b;
         A = a;
 
-        Rf = (float)R/255.0f;
-        Gf = (float)G/255.0f;
-        Bf = (float)B/255.0f;
-        Af = (float)A/255.0f;
+        Rf = (float) R / 255.0f;
+        Gf = (float) G / 255.0f;
+        Bf = (float) B / 255.0f;
+        Af = (float) A / 255.0f;
     }
 };
 

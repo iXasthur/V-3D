@@ -22,7 +22,7 @@ public:
 
     }
 
-    Vector3 operator-(const Vector3& b) const {
+    Vector3 operator-(const Vector3 &b) const {
         Vector3 vector;
         vector.x = this->x - b.x;
         vector.y = this->y - b.y;
@@ -30,7 +30,7 @@ public:
         return vector;
     }
 
-    Vector3 operator+(const Vector3& b) const {
+    Vector3 operator+(const Vector3 &b) const {
         Vector3 vector;
         vector.x = this->x - b.x;
         vector.y = this->y - b.y;
@@ -57,13 +57,13 @@ public:
         std::string s;
 
         std::string xs = std::to_string(x);
-        xs = xs.substr(0, xs.find('.')+3);
+        xs = xs.substr(0, xs.find('.') + 3);
 
         std::string xy = std::to_string(y);
-        xy = xy.substr(0, xs.find('.')+3);
+        xy = xy.substr(0, xs.find('.') + 3);
 
         std::string xz = std::to_string(z);
-        xz = xz.substr(0, xz.find('.')+3);
+        xz = xz.substr(0, xz.find('.') + 3);
 
         s = "x: " + xs + " y: " + xy + " z: " + xz;
         return s;

@@ -54,9 +54,9 @@ public:
         Vector3 pos;
         for (int i = 0; i < objects.size(); ++i) {
             if (i > 0) {
-                Vector3 lastDim = objects[i-1].dimension();
+                Vector3 lastDim = objects[i - 1].dimension();
                 Vector3 dim = objects[i].dimension();
-                pos.x += lastDim.x/2 + dim.x/2;
+                pos.x += lastDim.x / 2 + dim.x / 2;
                 pos.x += 5;
             }
 

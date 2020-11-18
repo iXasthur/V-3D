@@ -18,7 +18,9 @@ const SIZE FIRST_WINDOW_SIZE = SIZE{900, 900};
 const COLORREF BACKGROUND_COLOR = RGB(255, 255, 255);
 
 LRESULT CALLBACK WindowProc(HWND, UINT, WPARAM, LPARAM);
+
 void EnableOpenGL(HWND hwnd, HDC *, HGLRC *);
+
 void DisableOpenGL(HWND, HDC, HGLRC);
 
 Engine engine = Engine();
@@ -113,7 +115,7 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE, PWSTR pCmdLine, int nCmdShow
             engine.handleKeys(); // Faster than handling messages
             engine.draw(hDC);
             SetWindowTextA(hwnd, engine.description().data());
-            Sleep(1000/engine.fps);
+            Sleep(1000 / engine.fps);
         }
     }
 
@@ -139,7 +141,7 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam) 
             switch (wParam) {
                 case 0x4F: { // O
                     OPENFILENAME ofn;
-                    TCHAR szFile[260] = { 0 };
+                    TCHAR szFile[260] = {0};
 
                     ZeroMemory(&ofn, sizeof(ofn));
                     ofn.lStructSize = sizeof(ofn);
@@ -153,8 +155,7 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam) 
                     ofn.lpstrInitialDir = nullptr;
                     ofn.Flags = OFN_PATHMUSTEXIST | OFN_FILEMUSTEXIST;
 
-                    if (GetOpenFileName(&ofn) == TRUE)
-                    {
+                    if (GetOpenFileName(&ofn) == TRUE) {
                         std::wstring wpath = ofn.lpstrFile;
                         std::string path(wpath.begin(), wpath.end());
 

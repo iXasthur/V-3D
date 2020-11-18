@@ -12,13 +12,13 @@
 
 class ObjectLoader {
 private:
-    static std::vector<std::string> splitString (const std::string &s, char delim) {
+    static std::vector<std::string> splitString(const std::string &s, char delim) {
         std::vector<std::string> result;
-        std::stringstream ss (s);
+        std::stringstream ss(s);
         std::string item;
 
-        while (getline (ss, item, delim)) {
-            result.push_back (item);
+        while (getline(ss, item, delim)) {
+            result.push_back(item);
         }
 
         return result;
@@ -47,7 +47,7 @@ public:
         if (in) {
             std::string line;
             while (std::getline(in, line)) {
-                if (line.substr(0,2) == "v ") {
+                if (line.substr(0, 2) == "v ") {
                     std::istringstream v(line.substr(2));
                     Vector3 vertex;
 
@@ -56,7 +56,7 @@ public:
                     v >> vertex.z;
 
                     vertices.push_back(vertex);
-                } else if (line.substr(0,3) == "vn ") {
+                } else if (line.substr(0, 3) == "vn ") {
                     std::istringstream v(line.substr(3));
                     Vector3 normal;
 
@@ -65,7 +65,7 @@ public:
                     v >> normal.z;
 
                     normals.push_back(normal);
-                } else if (line.substr(0,2) == "f ") {
+                } else if (line.substr(0, 2) == "f ") {
                     std::vector<std::string> faceStrs = splitString(line, ' ');
                     faceStrs.erase(faceStrs.begin());
 
