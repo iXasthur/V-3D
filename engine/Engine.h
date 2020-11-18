@@ -148,7 +148,7 @@ public:
             s += obj.name + ", ";
         }
         s += scene.camera.position.toString();
-
+        s += ", light: " + std::to_string(scene.light.currentLightPositionIndex);
         switch (renderMode) {
             case RenderMode::SOLID:
                 s += ", SOLID";

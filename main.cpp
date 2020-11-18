@@ -185,6 +185,10 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam) 
                     engine.scene.resetCamera();
                     break;
                 }
+                case 0x45: { // E
+                    engine.scene.light.nextPosition();
+                    break;
+                }
                 case VK_ESCAPE: {
                     PostQuitMessage(0);
                     break;

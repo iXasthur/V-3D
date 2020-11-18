@@ -33,7 +33,16 @@ public:
     }
 
     void resetLight() {
-        light.position = {500, 500, 500 , 0};
+        light.lightPositions.clear();
+        light.lightPositions.emplace_back(Vector4(500, 500, 500, 0));
+        light.lightPositions.emplace_back(Vector4(-500, 500, 500, 0));
+        light.lightPositions.emplace_back(Vector4(-500, 500, -500, 0));
+        light.lightPositions.emplace_back(Vector4(500, 500, -500, 0));
+        light.lightPositions.emplace_back(Vector4(500, -500, 500, 0));
+        light.lightPositions.emplace_back(Vector4(-500, -500, 500, 0));
+        light.lightPositions.emplace_back(Vector4(-500, -500, -500, 0));
+        light.lightPositions.emplace_back(Vector4(500, -500, -500, 0));
+        light.nextPosition();
     }
 
     void add(const Object &obj) {
