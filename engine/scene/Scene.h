@@ -22,7 +22,19 @@ public:
 
     Color backgroundColor = Color(34, 34, 34, 255);
 
-    Scene() = default;
+    Scene() {
+        resetLight();
+        resetCamera();
+    };
+
+    void resetCamera() {
+        camera.position = {0, 10, 100};
+        camera.eulerRotation = EulerAngle();
+    }
+
+    void resetLight() {
+        light.position = {500, 500, 500 , 0};
+    }
 
     void add(const Object &obj) {
         objects.emplace_back(obj);
@@ -33,13 +45,13 @@ public:
         Vector3 pos;
         for (int i = 0; i < objects.size(); ++i) {
             if (i > 0) {
-                pos.x += objects[i-1].dimension().x/2 + objects[i].dimension().x/2;
-                pos.x += 1;
+                Vector3 lastDim = objects[i-1].dimension();
+                Vector3 dim = objects[i].dimension();
+                pos.x += lastDim.x/2 + dim.x/2;
+                pos.x += 5;
             }
 
             objects[i].position.x = pos.x;
-            objects[i].position.y = pos.y;
-            objects[i].position.z = pos.z;
         }
     }
 };

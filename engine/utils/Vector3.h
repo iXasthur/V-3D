@@ -6,6 +6,7 @@
 #define V_3D_VECTOR3_H
 
 #include <array>
+#include <cmath>
 
 class Vector3 {
 public:
@@ -39,6 +40,17 @@ public:
 
     std::array<float, 3> toArray() {
         return {x, y, z};
+    }
+
+    [[nodiscard]] float length() const {
+        return std::sqrt((x * x) + (y * y) + (z * z));
+    }
+
+    void normalize() {
+        float length = this->length();
+        x = x / length;
+        y = y / length;
+        z = z / length;
     }
 
     [[nodiscard]] std::string toString() const {

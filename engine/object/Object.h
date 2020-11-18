@@ -43,6 +43,45 @@ public:
         return normals;
     }
 
+    void normalizePolygonVertices() {
+        for (MyPolygon &polygon : polygons) {
+            for (Vector3 &vertex : polygon.vertices) {
+                vertex.normalize();
+            }
+        }
+    }
+
+    void resizeToHeight(float h) {
+        Vector3 dim = dimension();
+        float delta = h / dim.y;
+
+        for (MyPolygon &polygon : polygons) {
+            for (Vector3 &vertex : polygon.vertices) {
+                vertex.x *= delta;
+                vertex.y *= delta;
+                vertex.z *= delta;
+            }
+        }
+    }
+
+    void centerPolygonVertices() {
+        Vector3 lowestVertex;
+
+        for (MyPolygon &polygon : polygons) {
+            for (Vector3 vertex : polygon.vertices) {
+                if (vertex.y < lowestVertex.y) {
+                    lowestVertex = vertex;
+                }
+            }
+        }
+
+        for (MyPolygon &polygon : polygons) {
+            for (Vector3 &vertex : polygon.vertices) {
+                vertex.y -= lowestVertex.y;
+            }
+        }
+    }
+
     Vector3 dimension() {
         float minX = 0;
         float maxX = 0;

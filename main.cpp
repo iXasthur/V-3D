@@ -158,9 +158,30 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam) 
                         std::string path(wpath.begin(), wpath.end());
 
                         Object obj = ObjectLoader::LoadObjModel(path);
+                        obj.centerPolygonVertices();
+                        obj.resizeToHeight(10);
                         engine.scene.add(obj);
                     }
 
+                    break;
+                }
+                case 0x51: { // Q
+                    switch (engine.renderMode) {
+                        case Engine::RenderMode::SOLID:
+                            engine.renderMode = Engine::RenderMode::WIREFRAME;
+                            break;
+                        case Engine::RenderMode::WIREFRAME:
+                            engine.renderMode = Engine::RenderMode::SOLID;
+                            break;
+                    }
+                    break;
+                }
+                case 0x52: { // R
+                    engine.scene = Scene();
+                    break;
+                }
+                case 0x46: { // F
+                    engine.scene.resetCamera();
                     break;
                 }
                 case VK_ESCAPE: {

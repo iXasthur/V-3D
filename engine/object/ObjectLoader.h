@@ -11,6 +11,19 @@
 #include "Object.h"
 
 class ObjectLoader {
+private:
+    static std::vector<std::string> splitString (const std::string &s, char delim) {
+        std::vector<std::string> result;
+        std::stringstream ss (s);
+        std::string item;
+
+        while (getline (ss, item, delim)) {
+            result.push_back (item);
+        }
+
+        return result;
+    }
+
 public:
     static Object LoadObjModel(const std::string &filename) {
         Object obj = Object();
@@ -53,39 +66,40 @@ public:
 
                     normals.push_back(normal);
                 } else if (line.substr(0,2) == "f ") {
-                    std::istringstream v(line);
-
-                    int q = 0;
+                    std::vector<std::string> faceStrs = splitString(line, ' ');
+                    faceStrs.erase(faceStrs.begin());
 
                     std::vector<int> f;
                     std::vector<int> t;
                     std::vector<int> n;
 
-                    while (!v.eof()) {
-                        if (v.peek() == ' ') {
-                            int fv;
-                            v >> fv;
-                            f.emplace_back(fv);
+                    for (auto &faceStr : faceStrs) {
+                        std::vector<std::string> faceElementStrs = splitString(faceStr, '/');
 
-                            q = 0;
-                            while (v.peek() == '/') {
-                                v.ignore();
-                                if (v.peek() == '/') {
-                                    q++;
-                                    v.ignore();
-                                }
-
+                        for (int j = 0; j < faceElementStrs.size(); ++j) {
+                            if (!faceElementStrs[j].empty()) {
+                                std::istringstream v(faceElementStrs[j]);
+                                int fv;
                                 v >> fv;
-                                if (q == 0) {
-                                    t.emplace_back(fv);
-                                    q++;
-                                } else if (q == 1) {
-                                    n.emplace_back(fv);
-                                    q++;
+
+                                switch (j) {
+                                    case 0: {
+                                        f.emplace_back(fv);
+                                        break;
+                                    }
+                                    case 1: {
+                                        t.emplace_back(fv);
+                                        break;
+                                    }
+                                    case 2: {
+                                        n.emplace_back(fv);
+                                        break;
+                                    }
+                                    default: {
+                                        break;
+                                    }
                                 }
                             }
-                        } else {
-                            v.ignore();
                         }
                     }
 

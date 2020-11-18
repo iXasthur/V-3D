@@ -13,22 +13,23 @@
 
 class Engine {
 public:
+    enum class RenderMode
+    {
+        SOLID,
+        WIREFRAME
+    };
+
     const int fps = 120;
-    const float cameraMoveDeltaAbsolute = 0.1f;
+    const float cameraMoveDeltaAbsolute = 1.0f;
     const float cameraRotationDelta = 1.5f;
+    RenderMode renderMode = RenderMode::SOLID;
 
     Scene scene = Scene();
 
-    Engine() {
-        scene.camera.position = {0, 1, 10};
-        scene.light.position = {5, 5, 5 , 0};
-    }
+    Engine() = default;
 
     void createExampleScene() {
         scene = Scene();
-
-        scene.camera.position = {0, 1, 10};
-        scene.light.position = {5, 5, 5 , 0};
 
         Object monkey = ObjectFactory::monkey();
         scene.add(monkey);
@@ -91,6 +92,17 @@ public:
     }
 
     void draw(HDC hdc) {
+        switch (renderMode) {
+            case RenderMode::SOLID:
+                glPolygonMode(GL_FRONT, GL_FILL);
+                glPolygonMode(GL_BACK, GL_FILL);
+                break;
+            case RenderMode::WIREFRAME:
+                glPolygonMode(GL_FRONT, GL_LINE);
+                glPolygonMode(GL_BACK, GL_LINE);
+                break;
+        }
+
         // Clear screen
         glClearColor(scene.backgroundColor.Rf, scene.backgroundColor.Gf, scene.backgroundColor.Bf, scene.backgroundColor.Af);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -144,6 +156,15 @@ public:
             s += obj.name + ", ";
         }
         s += scene.camera.position.toString();
+
+        switch (renderMode) {
+            case RenderMode::SOLID:
+                s += ", SOLID";
+                break;
+            case Engine::RenderMode::WIREFRAME:
+                s += ", WIREFRAME";
+                break;
+        }
         return s;
     }
 };
