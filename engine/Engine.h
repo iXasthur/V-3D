@@ -8,7 +8,6 @@
 #include <array>
 #include "gl/gl.h"
 #include "scene/Scene.h"
-#include "object/ObjectFactory.h"
 #include <cmath>
 
 class Engine {
@@ -27,13 +26,6 @@ public:
     Scene scene = Scene();
 
     Engine() = default;
-
-    void createExampleScene() {
-        scene = Scene();
-
-        Object monkey = ObjectFactory::monkey();
-        scene.add(monkey);
-    }
 
     void handleKeys() {
         float moveSpeed = 0;

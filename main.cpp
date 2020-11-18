@@ -11,6 +11,7 @@
 #include "gl/gl.h"
 #include "engine/Engine.h"
 #include "engine/utils/MyPolygon.h"
+#include "engine/object/ObjectLoader.h"
 
 const SIZE MIN_WINDOW_SIZE = SIZE{900, 900};
 const SIZE FIRST_WINDOW_SIZE = SIZE{900, 900};
