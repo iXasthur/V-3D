@@ -63,7 +63,7 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE, PWSTR pCmdLine, int nCmdShow
             // Window text
             WINDOW_TITLE,
             // Window style
-            WS_OVERLAPPEDWINDOW,
+            WS_CAPTION | WS_SYSMENU | WS_MINIMIZEBOX,
             // Size and position
             CW_USEDEFAULT, CW_USEDEFAULT, FIRST_WINDOW_SIZE.cx, FIRST_WINDOW_SIZE.cy,
             // Parent window
